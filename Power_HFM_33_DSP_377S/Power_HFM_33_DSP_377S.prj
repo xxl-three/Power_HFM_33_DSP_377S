@@ -1,0 +1,25 @@
+[Project ID]
+Signature=UE Proj: v.1
+Unicode=2
+[Project Information]
+Use Relative Directory=1
+Relative to Project File=1
+Include Sub Directories=1
+Project Tagfile=
+Project Wordfile=
+Project TpFile=
+Filter=*.h;*.c;*.asm;*.cmd;*.map
+Create Tagfile=0
+Def Out Path=H:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\Measurement
+Project TagfileU=
+Project WordfileU=
+Project TpFileU=
+FilterU=+ACo-.H+ADsAKg-.CMD+ADsAKg-.C+ADsAKg-.asm+ADsAKg-.map
+[Files]
+	0=.\
+[Group Filter]
+	.\=
+[FilesU]
+0=.+AFw-
+[Group FilterU]
+.+AFw-=

@@ -1,0 +1,37 @@
+//  Texas Inst. TI320 class C compilers, ,
+//  Standard lint options
+
+-width(255,4)
+
+co-ti320.lnt
+
+options.lnt      
+
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\Battery
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\Bootloader
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\Buzzer
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\Can
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\Controller
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\DFTPLL
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\driverlib
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\EEPROM
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\F2837xS_common
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\F2837xS_headers
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\FanManagement
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\inc
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\Interrupt
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\Inverter_Parallel_Control
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\LCD
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\Measurement 
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\RTC
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\SCI
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\State_Machine_Management
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\Ups_Function
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\Controller\Charger
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\Controller\Inverter
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\Controller\PFC
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\F2837xS_headers\FlashAPI
+-iH:\Mzer_zhou\Design\20K_Tower\Tower_20Kva_377S\source\F2837xS_headers\FlashAPI\Constants
+-iC:\ti\ccs710\ccsv7\tools\compiler\ti-cgt-c2000_16.9.1.LTS\include
+

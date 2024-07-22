@@ -1,0 +1,19 @@
+// Please note -- this is a representative set of error suppression
+//                options.  Please adjust to suit your own policies
+//                See  manual (chapter LIVING WITH LINT)
+//                for further details.
+-e725   //Expected positive indentation from Location
+-e525   //Negative indentation from Location
+//-e46    //Bit fields in a structure should be typed unsigned or int.
+-e545   //Suspicious use of &
+-e740   //Unusual pointer cast (incompatible indirect types)
+-e140   //Type appears after modifier
+-e830   //Location cited in prior message
+-e641   //Converting enum to int
+-e701   //Shift left of signed quantity (int)
+-e702   //Shift right of signed quantity (int)
+-e703   //Shift left of signed quantity (long)
+-e704   //Shift right of signed quantity (long)
+-e714   //Symbol 'Symbol' (Location) not referenced
+-e755   //global macro 'Symbol' (Location) not referenced
+-e768   //global struct member 'Symbol' (Location) not referenced
