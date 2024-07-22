@@ -204,6 +204,7 @@ void main(void)
 
 
     // Step 6. IDLE loop. Just sit and loop forever (optional):
+    //步骤6。空闲循环。只是坐着永远循环(可选) :
 
     //---------------------------------------
     //InitBooterCAN();

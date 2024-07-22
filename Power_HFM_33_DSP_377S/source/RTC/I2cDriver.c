@@ -6,7 +6,7 @@ COMPILER : Code Composer Studio V7.1.0.00016
 
 MODULE   : I2cDriver.c
 
-VERSION  : V0.0
+VERSION  : V0.1
 
 DATE     : 2018/4/13 
 
