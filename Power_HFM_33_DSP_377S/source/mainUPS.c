@@ -45,13 +45,13 @@ void UserAppEntry(void)
 {
     EALLOW;
     //DcsmCommonRegs.FLSEM.all = 0x0A503;
-    Flash0EccRegs.ECC_ENABLE.bit.ENABLE = 0x00;//禁用自动纠错
+    Flash0EccRegs.ECC_ENABLE.bit.ENABLE = 0x00;//禁用flash自动纠错
     Flash0CtrlRegs.FRDCNTL.bit.RWAIT = 0x3;//读写等待周期3个时钟
     Flash0CtrlRegs.FBAC.all = 0x14;//访问周期20个时钟
     //Flash0CtrlRegs.FRD_INTF_CTRL.all = 0x3;
     EDIS;//特权寄存器访问
     
-    RamClear();//遍历清除
+    RamClear(); //遍历清除ram内存？
     c_int00();  //启动函数，正确初始化
 }
 
@@ -94,30 +94,31 @@ void main(void)
 {
 	static Uint32 u32mainStartIsrTimeCnt,u32mainEndIsrTimeCnt;
     static Uint32 u16mainLastCpuIsrTime;
+    //  u32mainStartIsrTimeCnt：这是一个无符号32位整数类型的变量，用于记录中断开始时的时间计数。它可能用于测量中断处理程序的执行时间或其他与中断相关的时间计算。
+    //	u32mainEndIsrTimeCnt  ：这是一个无符号32位整数类型的变量，用于记录中断结束时的时间计数。它可能用于测量中断处理程序的执行时间或其他与中断相关的时间计算。
+    //	u16mainLastCpuIsrTime ：这是一个无符号16位整数类型的变量，用于记录上一次CPU中断的时间。它可能用于计算两次CPU中断之间的时间间隔或其他与CPU中断相关的时间计算。
 
-    // Step 1. Initialize System Control:
-    // PLL, WatchDog, enable Peripheral Clocks
-    // This example function is found in the F2837xS_SysCtrl.c file.
-    //Step 1. 初始化系统控制： PLL、看门狗、使能外设时钟 这个示例函数可以在F2837xS_SysCtrl.c文件中找到。
+    //Step 1. 初始化系统控制： PLL、看门狗、使能外设时钟 
+    // 这个示例函数可以在F2837xS_SysCtrl.c文件中找到。
     InitSysCtrl();
 
     // Step 2. Initialize GPIO:
     // This example function is found in the F2837xS_Gpio.c file and
     // illustrates how to set the GPIO to it's default state.
+    // 第2步。初始化GPIO： 
+    /// 这个示例函数可以在F2837xS_Gpio.c文件中找到，它展示了如何将GPIO设置为默认状态。
     InitGpio();
     //InitTzGpio();
     InitEPwmGpio();
     InitSciGpio();
     InitECapGpio();
     InitI2cGpio();
-    //// 第2步。初始化GPIO： // 这个示例函数可以在F2837xS_Gpio.c文件中找到，它展示了如何将GPIO设置为默认状态。
 
     //cb, stb, 38ma
     //ClearRam();
 
-    // Step 3. Clear all interrupts and initialize PIE vector table:
-    // Disable CPU interrupts
-    //清除所有中断并初始化PIE向量表: //关闭CPU中断
+    // Step 3. 清除所有中断并初始化PIE向量表: 
+    //         关闭CPU中断
     DINT;
 
     // Initialize PIE control registers to their default state.
@@ -141,12 +142,12 @@ void main(void)
     // is not used in this example.  This is useful for debug purposes.
     // The shell ISR routines are found in F2837xS_DefaultIsr.c.
     // This function is found in F2837xS_PieVect.c.
-    //初始化带有指向shell Interrupt指针的PIE向量表 
-    // //服务程序(ISR) 
-    // //这将填充整个表，即使__interrupt 
-    // //在本例中没有使用。这对于调试很有用。 
-    // // shell ISR例程在F2837xS_DefaultIsr.c中找到。 
-    // //该函数在F2837xS_PieVect.c中找到。
+    // 初始化带有指向shell Interrupt指针的PIE向量表 
+    // 服务程序(ISR) 
+    // 这将填充整个表，即使__interrupt 
+    // 在本例中没有使用。这对于调试很有用。 
+    // shell ISR例程在F2837xS_DefaultIsr.c中找到。 
+    // 该函数在F2837xS_PieVect.c中找到。
     InitPieVectTable();
 
     //InitIntrupt();  //for Inv Ipeak detected
@@ -204,6 +205,7 @@ void main(void)
 
 
     // Step 6. IDLE loop. Just sit and loop forever (optional):
+    //步骤6。空闲循环。只是坐着永远循环(可选) :
 
     //---------------------------------------
     //InitBooterCAN();

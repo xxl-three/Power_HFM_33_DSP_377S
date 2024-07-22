@@ -65,12 +65,12 @@ void BootAppEntry(void)
     
     if(u16TmpCnt == 10)
     {
-        data = 0;						// let the UPS enter into boot mode
+        data = 0;					// let the UPS enter into boot mode
     }
 
-    if(data == BOOT_PASSWORD)			// Password ok ? 0x55AA
+    if(data == BOOT_PASSWORD)		// Password ok ? 0x55AA
     {
-        UserAppEntry();					        // UPS main
+        UserAppEntry();				// UPS main
     }
     else
     {
