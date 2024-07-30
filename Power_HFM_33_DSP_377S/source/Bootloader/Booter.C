@@ -137,29 +137,29 @@ void Bloader(void)
     MemCopy_Boot(&BootRamfunsRunStart, &BootRamfunsLoadStart, (size_t)&BootRamfunsLoadSize);
     MemCopy_Boot(&FlashApiRunStart, &FlashApiLoadStart, (size_t)&FlashApiLoadSize);
     
-    pu32FlashableFlashBank0Sector[0] = 0x084000;   //sector C
-    pu32FlashableFlashBank0Sector[1] = 0x086000;   //sector D
-    pu32FlashableFlashBank0Sector[2] = 0x088000;   //sector E
-    pu32FlashableFlashBank0Sector[3] = 0x090000;   //sector F
-    pu32FlashableFlashBank0Sector[4] = 0x098000;   //sector G
-    pu32FlashableFlashBank0Sector[5] = 0x0A0000;   //sector H
-    pu32FlashableFlashBank0Sector[6] = 0x0A8000;   //sector I
-    pu32FlashableFlashBank0Sector[7] = 0x0B0000;   //sector J
-    pu32FlashableFlashBank0Sector[8] = 0x0B8000;   //sector K
-    pu32FlashableFlashBank0Sector[9] = 0x0BA000;   //sector L
+    pu32FlashableFlashBank0Sector[0]  = 0x084000;   //sector C
+    pu32FlashableFlashBank0Sector[1]  = 0x086000;   //sector D
+    pu32FlashableFlashBank0Sector[2]  = 0x088000;   //sector E
+    pu32FlashableFlashBank0Sector[3]  = 0x090000;   //sector F
+    pu32FlashableFlashBank0Sector[4]  = 0x098000;   //sector G
+    pu32FlashableFlashBank0Sector[5]  = 0x0A0000;   //sector H
+    pu32FlashableFlashBank0Sector[6]  = 0x0A8000;   //sector I
+    pu32FlashableFlashBank0Sector[7]  = 0x0B0000;   //sector J
+    pu32FlashableFlashBank0Sector[8]  = 0x0B8000;   //sector K
+    pu32FlashableFlashBank0Sector[9]  = 0x0BA000;   //sector L
     pu32FlashableFlashBank0Sector[10] = 0x0BC000;   //sector M
     pu32FlashableFlashBank0Sector[11] = 0x0BE000;   //sector N
     
-    pu32FlashableFlashBank1Sector[0] = 0x0C0000;   //Sector O 
-    pu32FlashableFlashBank1Sector[1] = 0x0C2000;   //Sector P 
-    pu32FlashableFlashBank1Sector[2] = 0x0C4000;   //Sector Q 
-    pu32FlashableFlashBank1Sector[3] = 0x0C6000;   //Sector R 
-    pu32FlashableFlashBank1Sector[4] = 0x0C8000;   //Sector S 
-    pu32FlashableFlashBank1Sector[5] = 0x0D0000;   //Sector T 
-    pu32FlashableFlashBank1Sector[6] = 0x0D8000;   //Sector U 
-    pu32FlashableFlashBank1Sector[7] = 0x0E0000;   //Sector V 
-    pu32FlashableFlashBank1Sector[8] = 0x0E8000;   //Sector W 
-    pu32FlashableFlashBank1Sector[9] = 0x0F0000;   //Sector X 
+    pu32FlashableFlashBank1Sector[0]  = 0x0C0000;   //Sector O 
+    pu32FlashableFlashBank1Sector[1]  = 0x0C2000;   //Sector P 
+    pu32FlashableFlashBank1Sector[2]  = 0x0C4000;   //Sector Q 
+    pu32FlashableFlashBank1Sector[3]  = 0x0C6000;   //Sector R 
+    pu32FlashableFlashBank1Sector[4]  = 0x0C8000;   //Sector S 
+    pu32FlashableFlashBank1Sector[5]  = 0x0D0000;   //Sector T 
+    pu32FlashableFlashBank1Sector[6]  = 0x0D8000;   //Sector U 
+    pu32FlashableFlashBank1Sector[7]  = 0x0E0000;   //Sector V 
+    pu32FlashableFlashBank1Sector[8]  = 0x0E8000;   //Sector W 
+    pu32FlashableFlashBank1Sector[9]  = 0x0F0000;   //Sector X 
     pu32FlashableFlashBank1Sector[10] = 0x0F8000;   //Sector Y 
     pu32FlashableFlashBank1Sector[11] = 0x0FA000;   //Sector Z 
     pu32FlashableFlashBank1Sector[12] = 0x0FC000;   //Sector AA
@@ -352,8 +352,8 @@ void INIT_PIM_Boot(void)
     EPwm12Regs.TBCTR = 0;
     EPwm12Regs.CMPA.bit.CMPA = 0;
     EPwm12Regs.CMPB.bit.CMPB = BOOT_BUZ_PWM_HALF_PERIOD / 2;
-    EPwm12Regs.TBCTL.bit.HSPCLKDIV = TB_DIV1;
-    EPwm12Regs.TBCTL.bit.CTRMODE  = TB_COUNT_UPDOWN;
+    EPwm12Regs.TBCTL.bit.HSPCLKDIV  = TB_DIV1;
+    EPwm12Regs.TBCTL.bit.CTRMODE    = TB_COUNT_UPDOWN;
     EPwm12Regs.CMPCTL.bit.LOADAMODE = CC_CTR_PRD;
     EPwm12Regs.CMPCTL.bit.LOADBMODE = CC_CTR_PRD;
     EPwm12Regs.AQCTLA.bit.CAU  = AQ_CLEAR;
@@ -501,9 +501,9 @@ void SciReceive(void)
 #pragma CODE_SECTION(SciTransmit, "BOOTLOAD_APP");
 void SciTransmit(void)
 {
-    pu8BootTxIndex = u8BootTxBuffer;                  // TX buffer start address
+    pu8BootTxIndex = u8BootTxBuffer;              // TX buffer start address
 
-    SciFlag.sBit.TxDataEnable = 1;        // Tx data enable
+    SciFlag.sBit.TxDataEnable = 1;                // Tx data enable
 }
 
 //---------------------------------------------------------------------------------------
@@ -512,16 +512,16 @@ void SciTransmit(void)
 #pragma CODE_SECTION(SciReceiveData, "BOOTLOAD_APP");
 void SciReceiveData(void)
 {
-    if (ScidRegs.SCIFFRX.bit.RXFFST != 0)                	// Receive FIFO empty ?
+    if (ScidRegs.SCIFFRX.bit.RXFFST != 0)                           	// Receive FIFO empty ?
     {
-        SciFlag.sBit.RxDataIn = 1;                         	// set RX data
+        SciFlag.sBit.RxDataIn = 1;                                   	// set RX data
 
         u8BootRxBuffer[u8BootRxCount] = ScidRegs.SCIRXBUF.bit.SAR;      // store to buffer
 
-        NoRxDataCnt = 0;                                  	// clear count
+        NoRxDataCnt = 0;                                  	            // clear count
 
         u8BootRxCount++;
-        if (u8BootRxCount >= BOOT_RX_BUFF_LEN)                      // >= buffer length ?
+        if (u8BootRxCount >= BOOT_RX_BUFF_LEN)                          // >= buffer length ?
         {
             u8BootRxCount = 0;
         }

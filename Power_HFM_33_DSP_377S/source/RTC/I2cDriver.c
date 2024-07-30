@@ -63,7 +63,7 @@ Uint16 IsRtcReadComplete(void)
 	        //因此发出一个STOP指令结束这次读的command
 	        if (I2caRegs.I2CSTR.bit.NACK)    
 		    {
-			    I2caRegs.I2CMDR.bit.STP = 1;      // request stop condition
+			    I2caRegs.I2CMDR.bit.STP  = 1;      // request stop condition
 		        I2caRegs.I2CSTR.bit.NACK = 1;
 		    }
 		    else
@@ -207,7 +207,7 @@ Uint16 I2C_IsIdle(void)
 //-----------------------------------------------------------------------------
 Uint16 I2C_Read(Uint16 u16Addr, Uint16* pu16Data)
 {
-	Uint16 u16Local100us;
+	Uint16 u16Local100us; 
 	Uint16 u16TimeOutCnt;
 	Uint32 u32EEPROMAddr;
 	

@@ -22,7 +22,6 @@ MODIFICATIONS :
 
 ******************************************************************************/
 
-
 #include "F28x_Project.h"     // DSP2833x Headerfile Include File
 #include "math.h"
 #include "Measurement.h"
@@ -54,7 +53,7 @@ int16 i16CurrentOffCnt;
 union   UN_ADC_SP_FLAG sAdcOk;
 
 Uint16 u16CD4052OkChannel;
-Uint16	u16Adc4052PfcCount1, u16Adc4052PfcCount2, u16Adc4052InvCount1, u16Adc4052InvCount2;
+Uint16 u16Adc4052PfcCount1, u16Adc4052PfcCount2, u16Adc4052InvCount1, u16Adc4052InvCount2;
 
 // I/P Volt
 Uint16 u16RmsIpRVoltBuff[3][5], u16RmsBpsVoltBuff[3][5];
@@ -109,43 +108,49 @@ static Uint16  u16BusPosHighCnt, u16BusPosLowCnt, u16BusNegHighCnt, u16BusNegLow
 #pragma CODE_SECTION(IsrAdcSampling, "ramfuncs");
 void IsrAdcSampling(void)
 {    
-    // temperature
+    // temperature温度
     sADC_Measure.i16TempINV_R = ADC_NTC_I;
     sADC_Measure.i16TempINV_S = ADC_NTC_AMB;
     sADC_Measure.i16TempINV_T = ADC_NTC_B;        
 
-    // AC recifier Volt --- ADC5(Result_2)
+    // AC recifier Volt --- ADC5(Result_2)交流整流器电压—ADC5(Result_2)
     sADC_Measure.i16D2dBus_R = ADC_VBUS_PFC_R;
     sADC_Measure.i16D2dBus_S = ADC_VBUS_PFC_S;
     sADC_Measure.i16D2dBus_T = ADC_VBUS_PFC_T;
 
-    // INV Volt
+    // INV Volt变频器电压
     sADC_Measure.i16InvVolt_R = ADC_VINV_R - sAdcCal.i1P65Mean;
     sADC_Measure.i16InvVolt_S = ADC_VINV_S - sAdcCal.i1P65Mean;
     sADC_Measure.i16InvVolt_T = ADC_VINV_T - sAdcCal.i1P65Mean;
     
-    // Output Current
+    // Output Current输出电流/变频器？
     sADC_Measure.i16InvCurr_R = -(ADC_IINV_R - sAdcCal.i1P65Mean);
     sADC_Measure.i16InvCurr_S = -(ADC_IINV_S - sAdcCal.i1P65Mean);
     sADC_Measure.i16InvCurr_T = -(ADC_IINV_T - sAdcCal.i1P65Mean);
-
     
-    // Output Voltage
+    // Output Voltage输出电压
     sADC_Measure.i16OpVolt_R = ADC_VOUT_R - sAdcCal.i1P65Mean;
     sADC_Measure.i16OpVolt_S = ADC_VOUT_S - sAdcCal.i1P65Mean;
     sADC_Measure.i16OpVolt_T = ADC_VOUT_T - sAdcCal.i1P65Mean;
     
-    // Output Current
+    // Output Current输出电流
     sADC_Measure.i16OpCurr_R = -(ADC_IOUT_R - sAdcCal.i1P65Mean);
     sADC_Measure.i16OpCurr_S = -(ADC_IOUT_S - sAdcCal.i1P65Mean);
     sADC_Measure.i16OpCurr_T = -(ADC_IOUT_T - sAdcCal.i1P65Mean);
 
     sADC_Measure.i1P65Ref = ADC_1P65_REF;
 }
-
+//这段代码是一个中断服务程序（ISR），用于对ADC进行采样。它在每个时间基准（58.8微秒）触发一次。主要功能如下：
+//1.	读取温度传感器的值，并将其存储在sADC_Measure.i16TempINV_R、sADC_Measure.i16TempINV_S和sADC_Measure.i16TempINV_T中。
+//2.	读取交流整流器电压的值，并将其存储在sADC_Measure.i16D2dBus_R、sADC_Measure.i16D2dBus_S和sADC_Measure.i16D2dBus_T中。
+//3.	读取逆变器电压的值，并将其存储在sADC_Measure.i16InvVolt_R、sADC_Measure.i16InvVolt_S和sADC_Measure.i16InvVolt_T中。这些值是通过从ADC读取的原始值减去sAdcCal.i1P65Mean得到的。
+//4.	读取输出电流的值，并将其存储在sADC_Measure.i16InvCurr_R、sADC_Measure.i16InvCurr_S和sADC_Measure.i16InvCurr_T中。这些值是通过从ADC读取的原始值减去sAdcCal.i1P65Mean得到的，并取其负值。
+//5.	读取输出电压的值，并将其存储在sADC_Measure.i16OpVolt_R、sADC_Measure.i16OpVolt_S和sADC_Measure.i16OpVolt_T中。这些值是通过从ADC读取的原始值减去sAdcCal.i1P65Mean得到的。
+//6.	读取输出电流的值，并将其存储在sADC_Measure.i16OpCurr_R、sADC_Measure.i16OpCurr_S和sADC_Measure.i16OpCurr_T中。这些值是通过从ADC读取的原始值减去sAdcCal.i1P65Mean得到的，并取其负值。
+//7.	读取1.65V参考电压的值，并将其存储在sADC_Measure.i1P65Ref中。
 
 //----------------------------------------------------------------------------
-// check Inverter voltage moving sum
+// check Inverter voltage moving sum检查逆变器电压移动总和
 //----------------------------------------------------------------------------
 #pragma CODE_SECTION(VoltageInverterMovingSum, "ramfuncs");
 void VoltageInverterMovingSum(void)
@@ -199,7 +204,7 @@ void DcOffsetCalc(void)
         sADC_Mean.i32SumOPVolt	+= sADC_Measure.i16OpVolt_R;
 
         // Output Current
-        sADC_Mean.i32SumOPCurr += sADC_Measure.i16OpCurr_R;
+        sADC_Mean.i32SumOPCurr  += sADC_Measure.i16OpCurr_R;
 
         if(i16CurrentOffCnt == 4096)  	// Call Once At Power On
         {
@@ -220,7 +225,20 @@ void DcOffsetCalc(void)
         }
     }
 }
-
+//这段代码是一个函数DcOffsetCalc，用于进行直流偏移采样。它在电源启动时调用一次。
+//函数内部有一系列操作：
+//1.	首先，它检查sADC_Mean.i16StartCnt是否等于START_ADC_MEAN_CNT，并且sADC_Mean.StartMeanOK为假。这个条件用于判断是否需要进行直流偏移采样。
+//2.	如果满足条件，i16CurrentOffCnt递增。
+//3.	接下来，它将逆变器电压sADC_Measure.i16InvVolt_R累加到sADC_Mean.i32SumInv1Vol中。
+//4.	将输出电压sADC_Measure.i16OpVolt_R累加到sADC_Mean.i32SumOPVolt中。
+//5.	将输出电流sADC_Measure.i16OpCurr_R累加到sADC_Mean.i32SumOPCurr中。
+//6.	当i16CurrentOffCnt等于4096时，也就是在电源启动时，执行以下操作：
+//?	将逆变器电压的累加和右移12位，得到平均值，并存储在sADC_Mean.i16InvVolt_R中。
+//?	将输出电压的累加和右移12位，得到平均值，并存储在sADC_Mean.i16OPVolt中。
+//?	将输出电流的累加和右移12位，得到平均值，并存储在sADC_Mean.i16OpCurr_R中。
+//?	如果输出电流的绝对值大于400，将输出电流置为0。
+//?	将sADC_Mean.StartMeanOK设置为1，表示直流偏移采样已完成。
+//总体来说，这段代码的作用是在电源启动时进行直流偏移采样，并计算逆变器电压、输出电压和输出电流的平均值。这些平均值将用于后续的电流和电压测量。
 
 //------------------------------------------------------------------------------
 // Isr
@@ -233,23 +251,23 @@ void IsrAdcSum(void)
     static unsigned int u16IpvSumCnt = 0;
     static Uint32 u32IpvSumTimeCnt = 0;
 
-    sAdcSum.u32D2dBus_R += (sADC_Measure.i16D2dBus_R);
+    sAdcSum.u32D2dBus_R  += (sADC_Measure.i16D2dBus_R);
     sAdcSum.u32InvVolt_R += (Uint32)((int32)sADC_Measure.i16InvVolt_R * sADC_Measure.i16InvVolt_R);
-    sAdcSum.u32OpVolt_R += (Uint32)((int32)sADC_Measure.i16OpVolt_R * sADC_Measure.i16OpVolt_R);
-    sAdcSum.u32OpCurr_R += (Uint32)((int32)sADC_Measure.i16OpCurr_R * sADC_Measure.i16OpCurr_R);
-    sAdcSum.i32OpWatt_R += ((int32)sADC_Measure.i16OpVolt_R * sADC_Measure.i16OpCurr_R);
+    sAdcSum.u32OpVolt_R  += (Uint32)((int32)sADC_Measure.i16OpVolt_R  * sADC_Measure.i16OpVolt_R);
+    sAdcSum.u32OpCurr_R  += (Uint32)((int32)sADC_Measure.i16OpCurr_R  * sADC_Measure.i16OpCurr_R);
+    sAdcSum.i32OpWatt_R  += ((int32)sADC_Measure.i16OpVolt_R * sADC_Measure.i16OpCurr_R);
 
-    sAdcSum.u32D2dBus_S += (sADC_Measure.i16D2dBus_S);
+    sAdcSum.u32D2dBus_S  += (sADC_Measure.i16D2dBus_S);
     sAdcSum.u32InvVolt_S += (Uint32)((int32)sADC_Measure.i16InvVolt_S * sADC_Measure.i16InvVolt_S);
-    sAdcSum.u32OpVolt_S += (Uint32)((int32)sADC_Measure.i16OpVolt_S * sADC_Measure.i16OpVolt_S);
-    sAdcSum.u32OpCurr_S += (Uint32)((int32)sADC_Measure.i16OpCurr_S * sADC_Measure.i16OpCurr_S);
-    sAdcSum.i32OpWatt_S += ((int32)sADC_Measure.i16OpVolt_S * sADC_Measure.i16OpCurr_S);
+    sAdcSum.u32OpVolt_S  += (Uint32)((int32)sADC_Measure.i16OpVolt_S  * sADC_Measure.i16OpVolt_S);
+    sAdcSum.u32OpCurr_S  += (Uint32)((int32)sADC_Measure.i16OpCurr_S  * sADC_Measure.i16OpCurr_S);
+    sAdcSum.i32OpWatt_S  += ((int32)sADC_Measure.i16OpVolt_S * sADC_Measure.i16OpCurr_S);
 
-    sAdcSum.u32D2dBus_T += (sADC_Measure.i16D2dBus_T);
+    sAdcSum.u32D2dBus_T  += (sADC_Measure.i16D2dBus_T);
     sAdcSum.u32InvVolt_T += (Uint32)((int32)sADC_Measure.i16InvVolt_T * sADC_Measure.i16InvVolt_T);
-    sAdcSum.u32OpVolt_T += (Uint32)((int32)sADC_Measure.i16OpVolt_T * sADC_Measure.i16OpVolt_T);
-    sAdcSum.u32OpCurr_T += (Uint32)((int32)sADC_Measure.i16OpCurr_T * sADC_Measure.i16OpCurr_T);
-    sAdcSum.i32OpWatt_T += ((int32)sADC_Measure.i16OpVolt_T * sADC_Measure.i16OpCurr_T);
+    sAdcSum.u32OpVolt_T  += (Uint32)((int32)sADC_Measure.i16OpVolt_T  * sADC_Measure.i16OpVolt_T);
+    sAdcSum.u32OpCurr_T  += (Uint32)((int32)sADC_Measure.i16OpCurr_T  * sADC_Measure.i16OpCurr_T);
+    sAdcSum.i32OpWatt_T  += ((int32)sADC_Measure.i16OpVolt_T * sADC_Measure.i16OpCurr_T);
     
     sAdcSum.u32TempINV_R += sADC_Measure.i16TempINV_R;
     sAdcSum.u32TempINV_S += sADC_Measure.i16TempINV_S;
@@ -257,7 +275,7 @@ void IsrAdcSum(void)
     sAdcSum.u321P65 += sADC_Measure.i1P65Ref;
     
 
-    if(u16SineWaveIndex == 0)
+    if(u16SineWaveIndex == 0)//正弦波指数？
     {
         sAdcSumBuff.u32D2dBus_R  = sAdcSum.u32D2dBus_R ;
         sAdcSumBuff.u32InvVolt_R = sAdcSum.u32InvVolt_R;
@@ -344,6 +362,16 @@ void IsrAdcSum(void)
         }
     }
 }
+//这部分代码是用于处理ADC采样的中断服务程序（ISR）。它在每个时间基准（58.8微秒）触发一次。主要功能如下：
+//1.	对交流整流器电压进行累加：将交流整流器电压的值累加到sAdcSum.u32D2dBus_R、sAdcSum.u32D2dBus_S和sAdcSum.u32D2dBus_T中。
+//2.	对逆变器电压进行平方和累加：将逆变器电压的值平方后累加到sAdcSum.u32InvVolt_R、sAdcSum.u32InvVolt_S和sAdcSum.u32InvVolt_T中。
+//3.	对输出电压进行平方和累加：将输出电压的值平方后累加到sAdcSum.u32OpVolt_R、sAdcSum.u32OpVolt_S和sAdcSum.u32OpVolt_T中。
+//4.	对输出电流进行平方和累加：将输出电流的值平方后累加到sAdcSum.u32OpCurr_R、sAdcSum.u32OpCurr_S和sAdcSum.u32OpCurr_T中。
+//5.	对输出功率进行累加：将输出电压和输出电流的乘积累加到sAdcSum.i32OpWatt_R和sAdcSum.i32OpWatt_S中。
+//6.	对温度进行累加：将温度传感器的值累加到sAdcSum.u32TempINV_R、sAdcSum.u32TempINV_S和sAdcSum.u32TempINV_T中。
+//7.	对1.65V参考电压进行累加：将1.65V参考电压的值累加到sAdcSum.u321P65中。
+//8.	当sAdcSum中的数据累加到一定次数后，将累加结果保存到sAdcSumBuff中，并设置相应的标志位。
+//这段代码的作用是对ADC采样的结果进行累加和处理，以便后续进行数据分析和计算。
 
 //------------------------------------------------------------------------------
 // IN: R0        OUT:R0
@@ -474,11 +502,11 @@ void CalcIpVolt(void)
 
     // Ip_R
     u16Temp1 = (u16RmsIpRVoltBuff_Sum[0] >> 1);	// Uint: 1V
-    sRMS.u16IpVolt_R = LESS50V(u16Temp1);			// Check < 50V ?
+    sRMS.u16IpVolt_R = LESS50V(u16Temp1);		// Check < 50V ?
     u16Temp1 = (u16RmsIpRVoltBuff_Sum[1] >> 1);	// Uint: 1V
-    sRMS.u16IpVolt_S = LESS50V(u16Temp1);			// Check < 50V ?
+    sRMS.u16IpVolt_S = LESS50V(u16Temp1);		// Check < 50V ?
     u16Temp1 = (u16RmsIpRVoltBuff_Sum[2] >> 1);	// Uint: 1V
-    sRMS.u16IpVolt_T = LESS50V(u16Temp1);			// Check < 50V ?
+    sRMS.u16IpVolt_T = LESS50V(u16Temp1);		// Check < 50V ?
 
 }
 
@@ -912,7 +940,7 @@ void CalcTemperature2(void)
 
 
 //------------------------------------------------------------------------------
-// Calculate RMS Value
+// Calculate RMS Value计算方均根
 // timebase: main loop
 //------------------------------------------------------------------------------
 //#pragma CODE_SECTION(ADC_Square, "ramfuncs");
@@ -977,7 +1005,7 @@ void TaskRmsCalc(void)
     ADC_Square();
 }
 //----------------------------------------------------------------------------
-// CHECK FREQUENCY
+// CHECK FREQUENCY 频率检查
 // 1> Check it every 100ms;
 // 2> sRMS.u16AcFreq: AC I/P R_Phase Freq;
 // 3> Check "u1AcFreqOutofRange" For AC&DC Transfer
@@ -1071,7 +1099,7 @@ void GetFrequency(void)
 {
     Uint16 i_ACFreq, i_BPFreq, i_OPFREQ;
 
-    static Uint16 u16MesAcFreqCnt = 0;              // ACIN   FREQ, RS-232 & LCD count
+    static Uint16 u16MesAcFreqCnt  = 0;             // ACIN   FREQ, RS-232 & LCD count
     static Uint16 u16MesBpsFreqCnt = 0;             // BYPASS FREQ, RS-232 & LCD count
     /*
         // Calculate AC INPUT frequency
