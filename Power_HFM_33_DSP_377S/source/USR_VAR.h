@@ -1032,11 +1032,11 @@ typedef struct
 
 
 /*****************************************************************************/
-extern  Uint16  u16MicroSec;        // Mico second
+extern  Uint16  u16MicroSec;                  // Mico second
 extern  Uint16  u16Mini1ms;                     // Mini second, 1 ms
 extern  Uint16  u16Mini10ms;                    // Mini second, 10 ms
 extern  Uint16  u16Mini50ms;                    // Mini second, 50 ms
-extern  Uint16  u16Mini100ms;                  // Mini second, 100 ms
+extern  Uint16  u16Mini100ms;                   // Mini second, 100 ms
 extern  Uint16  u16Second;                      // Second
 extern  Uint16  u16Minute;                      // Minute
 extern  Uint16  u16Hour;                        // Hour

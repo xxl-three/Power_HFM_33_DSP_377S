@@ -43,9 +43,9 @@ void BootAppEntry(void)
     
     EALLOW;
     //DcsmCommonRegs.FLSEM.all = 0x0A503;
-    Flash0EccRegs.ECC_ENABLE.bit.ENABLE = 0x00;
-    Flash0CtrlRegs.FRDCNTL.bit.RWAIT = 0x3;
-    Flash0CtrlRegs.FBAC.all = 0x14;
+    Flash0EccRegs. ECC_ENABLE.bit.ENABLE = 0x00;
+    Flash0CtrlRegs.FRDCNTL.bit.RWAIT     = 0x3;
+    Flash0CtrlRegs.FBAC.all              = 0x14;
     //Flash0CtrlRegs.FRD_INTF_CTRL.all = 0x3;
     EDIS;
 

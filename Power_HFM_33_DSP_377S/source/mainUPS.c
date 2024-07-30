@@ -37,7 +37,7 @@ extern Uint16 ebssEnd[];      //The symbol is created by the linker. Refer to th
 extern Uint16 claDataStart[];
 extern Uint16 claDataEnd[];
 
-extern void c_int00(void);  //The function is defined in rts2800_ml.lib
+extern void c_int00(void);    //The function is defined in rts2800_ml.lib
 void My_Init(void);
 void RamClear(void);
 #pragma CODE_SECTION(UserAppEntry, "USER_APP_ENTRY");

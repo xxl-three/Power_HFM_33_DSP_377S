@@ -45,7 +45,7 @@ Uint16 u16Address;
 Uint32 u32Address;
 Uint16 u16Index;
 Uint16 u16Quantity;
-Uint16 u16OutputValue; // for write single coil & write single holding register
+Uint16 u16OutputValue; // for write single coil & write single holding register用于写单线圈和写单保持寄存器
 Uint16 u16Offset;
 Uint8  u8RealPosHi, u8ReplyPosHi;
 Uint16 u16ErrorCode;
@@ -60,6 +60,7 @@ _StructModbusData sModbusData;
 //
 //----------------------------------------------------------------------------
 void MBus_TimeOutInit(unsigned int ulBaudRate)
+//该函数根据波特率初始化超时计时器。对于高于 19200 的波特率，使用固定的 1750 微秒计时器值。否则，计算字符时间的 3.5 倍。
 {
     // If baudrate > 19200 then we should use the fixed timer values
     // t35 = 1750us. Otherwise t35 must be 3.5 times the character time.
@@ -82,7 +83,7 @@ void MBus_TimeOutInit(unsigned int ulBaudRate)
 }
 
 //----------------------------------------------------------------------------
-//
+//该函数初始化指定端口的接收和发送参数
 //----------------------------------------------------------------------------
 void MBus_InitialRxTx(Uint16 u16MbusPortIndex)
 {
@@ -100,6 +101,7 @@ void MBus_InitialRxTx(Uint16 u16MbusPortIndex)
 // Description: Initialize parameters of modbus data
 // Arg: void
 // Return: void
+// 该函数初始化 MODBUS 数据，包括离散输入、线圈、保持寄存器和输入寄存器。
 //----------------------------------------------------------------------------
 void MBus_InitialModbusData(void)
 {
@@ -187,6 +189,7 @@ void MBus_InitialModbusData(void)
 // Description: Initialize parameters of modbus
 // Arg: void
 // Return: void
+// 该函数初始化 MODBUS，包括超时计时器、接收/发送参数和 MODBUS 数据。
 //----------------------------------------------------------------------------
 void MBus_InitialModbus(void)
 {
@@ -213,7 +216,7 @@ void MBus_InitialModbus(void)
 
 
 //----------------------------------------------------------------------------
-//Function code 0x06/0x10 write data process
+//Function code 0x06/0x10 write data process该函数处理写操作，根据地址执行相应的操作，如设置输出电压、频率、限流等。
 //----------------------------------------------------------------------------
 void Function_WrProcess(unsigned short u16Address0)
 {

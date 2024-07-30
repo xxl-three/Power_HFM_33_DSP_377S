@@ -20,7 +20,6 @@ DESCRIPTION   :
 
 MODIFICATIONS :
 
-
 ******************************************************************************/
 #include "F28x_Project.h"   // Device Headerfile and Examples Include File
 #include "USR_VAR.H"
@@ -34,10 +33,10 @@ Uint16  u16BeepOnCntBuf;                // Beep on temp. count
 Uint16  u16BeepOffCntBuf;               // Beep off temp. count
 
 //----------------------------------------------------------------------------
-// Golbal Variable
+// Golbal Variable ±‰¡ø
 //----------------------------------------------------------------------------
 union   UN_BEEP_FLAG sBeepFlag;                     // BEEP flag
-union   UN_BEEP_SOUND sBeepSound;                   // BEEP sound select
+union   UN_BEEP_SOUND sBeepSound;              // BEEP sound select
 
 Uint16  u16BuzzerTestTime;                  // Buzzer Test time
 
@@ -64,8 +63,8 @@ void BuzzerBeepOperation(void)
         return;
     }
 
-    if (sBeepSound.sBit.u1OneBeep0p2s  ||
-        sBeepSound.sBit.u1OneBeep5s   ||
+    if (sBeepSound.sBit.u1OneBeep0p2s      ||
+        sBeepSound.sBit.u1OneBeep5s        ||
         sBeepFlag.sBit.u1BiBi)
     {
         //do nothing
@@ -216,7 +215,7 @@ void BuzzerBeepOperation(void)
 //----------------------------------------------------------------------------
 void BuzzerBeepCom(void)
 {
-    u16BeepOnCntBuf = u16BeepOnCnt;                   // store to u16BeepOnCntBuf
+    u16BeepOnCntBuf  = u16BeepOnCnt;                   // store to u16BeepOnCntBuf
     u16BeepOffCntBuf = u16BeepOffCnt;                 // store to u16BeepOffCntBuf
 }
 
@@ -411,18 +410,18 @@ void BuzzerSetup(void)
         BuzzerFastBeep();
     }
     else if ((sUpsMode.sBit.FAULT_MODE && !sQualityFlag.sBattery.sBit.u1BattShutdown) ||
-             sIconLcd.fIconFlag.showErrCode         ||
-             sVersionFlag.sBit.UpsCompatibleNOK	    ||      	// UPS1/UPS2 Version code Compatible NOK ?
-             sVersionFlag.sBit.VACompatibleNOK		||          // UPS1/UPS2 VA Compatible NOK ?
-             sCanModule.PAR_ERR.sBit.u1IdError      ||
-             sParallelLoadFlag.sBit.u1LoadUnbalance ||
-             sRedundancyFlag.sBit.u1RedundancyLost  ||
-             sQualityFlag.sBattery.sBit.u1BattReverse ||
-             sQualityFlag.sBattery.sBit.u1BattOverChg ||
-             sQualityFlag.sCharger.sBit.u1ChgFail  ||
-             sQualityFlag.sCharger.sBit.u1ChgRelayOpen ||
-             sQualityFlag.sCharger.sBit.u1ChgRelayStick ||
-             sQualityFlag.sFault.sBit.u1FanFail	 ||
+             sIconLcd.fIconFlag.showErrCode             ||
+             sVersionFlag.sBit.UpsCompatibleNOK	        ||      	// UPS1/UPS2 Version code Compatible NOK ?
+             sVersionFlag.sBit.VACompatibleNOK		    ||          // UPS1/UPS2 VA Compatible NOK ?
+             sCanModule.PAR_ERR.sBit.u1IdError          ||
+             sParallelLoadFlag.sBit.u1LoadUnbalance     ||
+             sRedundancyFlag.sBit.u1RedundancyLost      ||
+             sQualityFlag.sBattery.sBit.u1BattReverse   ||
+             sQualityFlag.sBattery.sBit.u1BattOverChg   ||
+             sQualityFlag.sCharger.sBit.u1ChgFail       ||
+             sQualityFlag.sCharger.sBit.u1ChgRelayOpen  ||
+             sQualityFlag.sCharger.sBit.u1ChgRelayStic k||
+             sQualityFlag.sFault.sBit.u1FanFail	  |
              sQualityFlag.sWarning.sBit.u1OverloadAlarm ||
              sLoadPercentFlag.sBit.u1UserOverloadAlarm  ||
              sQualityFlag.sBattery.sBit.u1BattNeedReplace ||
